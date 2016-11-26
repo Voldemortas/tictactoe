@@ -8,7 +8,7 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
-//app.use(express.static(__dirname));
+app.use(express.static(__dirname));
 app.post('/', function(req, res){
     fs.readFile(__dirname + '/data.json', function(err, data) {
         const json = JSON.parse(data.toString());
