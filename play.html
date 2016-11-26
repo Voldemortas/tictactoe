@@ -1,0 +1,43 @@
+<body onload="reload()">
+<script>
+    function reload(){
+        setInterval(init, 500);
+    }
+    function init(){
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.body.innerHTML = str(JSON.parse(this.responseText));
+            }
+        };
+        xhttp.open("GET", "data.json", true);
+        xhttp.send();
+    }
+    function post(pos, id){
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                init();
+            }
+        };
+        xhttp.open("POST", "/", true);
+        xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhttp.send('action='+pos+'&player='+id);
+    }
+    function str(json) {
+        let string = '<table border="0">';
+        let reg = /player=(\d+)($|&)/i;
+        for(let i = 0; i < 3; i++){
+            string += "<tr>";
+            for(let j = 0; j < 3; j++){
+                let number = i*3+j;
+                string += "<td><button style='width: 40px; height: 40px' "+(json[number]!=0?"disabled":"") +
+                        " onclick='post("+number+", "+window.location.search.match(reg)[1]+")'>"+(json[number]!=0?json[number]:"ADD")+"</button></td>";
+            }
+            string += "</tr>";
+        }
+        string += "</table><script src='functions.js'><\/script>";
+        return string;
+    }
+</script>
+</body>
