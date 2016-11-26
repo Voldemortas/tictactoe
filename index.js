@@ -8,7 +8,7 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
-app.use(express.static(__dirname));
+app.use(express.static('/run', __dirname));
 app.post('/', function(req, res){
     fs.readFile(__dirname + '/data.json', function(err, data) {
         const json = JSON.parse(data.toString());
@@ -21,7 +21,7 @@ app.post('/', function(req, res){
             while (r1 == r2);//*/
             fs.writeFile(__dirname + '/data.json', '{"0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0,' +
                 ' "started": "true", "p1": "' + r1 + '", "p2": "' + r2 + '", "turn": '+json.turn+'}', function () {
-                res.send('<a href="play.html?player=' + r1 + '">Player1</a> <a href="play.html?player=' + r2 + '">Player2</a>' +
+                res.send('<a href="run/play.html?player=' + r1 + '">Player1</a> <a href="run/play.html?player=' + r2 + '">Player2</a>' +
                     '<br />Turn for player' + json.turn);
             });
         } else if (req.body.action >= 0 && req.body.action < 9 && req.body.player == json['p'+json.turn]) {
@@ -46,7 +46,7 @@ app.get('/', function (req, res) {
             res.send('Do you want to start the game? ' +
                 '<form action="" method="post"><input name="start" type="submit" value="Yes" /></form>');
         }else{
-            res.redirect('result.html');
+            res.redirect('run/result.html');
         }
     });
 });
