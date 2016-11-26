@@ -1,22 +1,17 @@
 {
   "name": "tictactoe",
   "version": "1.0.0",
-  "description": "Tic Tac Toe",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "Andrius Simanaitis",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.14.0",
-    "mongodb": "^2.2.11"
-  },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Voldemortas/tictactoe.git"
   },
+  "author": "Andrius Simanaitis",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/Voldemortas/tictactoe/issues"
   },
