@@ -1,3 +1,4 @@
+'use strict';
 const http = require('http');
 const express = require('express');
 const fs = require('fs');
@@ -17,7 +18,7 @@ app.post('/', function(req, res){
             do {
                 r2 = Math.floor(Math.random() * 1000)
             }
-            while (r1 == r2);//*/ 
+            while (r1 == r2);//*/
             fs.writeFile(__dirname + '/data.json', '{"0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0,' +
                 ' "started": "true", "p1": "' + r1 + '", "p2": "' + r2 + '", "turn": '+json.turn+'}', function () {
                 res.send('<a href="play.html?player=' + r1 + '">Player1</a> <a href="play.html?player=' + r2 + '">Player2</a>' +
@@ -47,6 +48,12 @@ app.get('/', function (req, res) {
         }else{
             res.redirect('result.html');
         }
+    });
+});
+app.get('/restart', function (req, res) {
+    fs.writeFile(__dirname + '/data.json', '{"0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0,' +
+        ' "started": "false", "p1": "", "p2": "", "turn": '+Math.floor((Math.random() * 2) + 1)+'}', function(){
+        res.redirect('/');
     });
 });
 const port = process.env.PORT;
