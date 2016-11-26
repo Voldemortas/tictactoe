@@ -39,7 +39,6 @@ app.post('/', function(req, res){
         }
     });
 });
-
 app.get('/', function (req, res) {
     fs.readFile(__dirname + '/data.json', function(err, data){
         let json = JSON.parse(data.toString());
@@ -50,7 +49,12 @@ app.get('/', function (req, res) {
             res.redirect('result.html');
         }
     });
-
+});
+app.get('/restart', function (req, res) {
+    fs.writeFile(__dirname + '/data.json', '{"0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0,' +
+        ' "started": "false", "p1": "", "p2": "", "turn": '+Math.floor((Math.random() * 2) + 1)+'}', function(){
+        res.redirect('result.html');
+    });
 });
 const port = process.env.PORT;
 const server = http.createServer(app);
